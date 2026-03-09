@@ -1,0 +1,85 @@
+# AI AGENT ASSISTANCE ကို SOC အတွက် ZERO BUDGET ဖြင့် တည်ဆောက်ခြင်း
+
+**Technical Guide for Security Operations Center (SOC) Implementation**
+
+## ၁။ နိဒါန်း (Introduction)
+
+Security Operations Center (SOC) သည် အဖွဲ့အစည်းတစ်ခု၏ ဆိုက်ဘာလုံခြုံရေးအတွက် အရေးပါသော နေရာဖြစ်သည်။ သို့သော် အသေးစားနှင့် အလတ်စား လုပ်ငန်းများ (SMBs) အတွက် စျေးကြီးသော Commercial SOAR (Security Orchestration, Automation and Response) tools များကို ဝယ်ယူသုံးစွဲရန် ဘတ်ဂျက်အခက်အခဲရှိတတ်သည်။ ဤလမ်းညွှန်ချက်သည် အခမဲ့ရရှိနိုင်သော Open Source Tools များနှင့် AI နည်းပညာများကို အသုံးပြု၍ "Zero Budget" ဖြင့် ထိရောက်သော AI Agent Assistance စနစ်တစ်ခု မည်သို့တည်ဆောက်ရမည်ကို ဖော်ပြထားသည်။
+
+ဤစနစ်၏ ရည်ရွယ်ချက်မှာ SOC Analysts များအတွက် လက် tedious ဖြစ်သော လုပ်ငန်းစဉ်များကို အလိုအလျောက်လုပ်ဆောင်ပေးခြင်း (Automation) နှင့် ခြိမ်းခြောက်မှုများကို လျင်မြန်စွာ တုံ့ပြန်နိုင်စေရန် (Response) ကူညီပေးခြင်းဖြစ်သည်။
+
+## ၂။ SOC တွင် AI Agents များ အသုံးပြုခြင်း၏ အကျိုးကျေးဇူးများ
+
+- **Alert Fatigue လျှော့ချခြင်း-** နေ့စဉ်ဝင်ရောက်နေသော သတိပေးချက် (Alerts) များစွာအနက်မှ အရေးကြီးသော အရာများကိုသာ ခွဲခြားစစ်ဆေးပေးနိုင်သည်။
+
+- **Response Time မြန်ဆန်စေခြင်း-** သာမန်တိုက်ခိုက်မှုများ (ဥပမာ - Phishing email စစ်ဆေးခြင်း) ကို လူမလိုဘဲ စက္ကန့်ပိုင်းအတွင်း တုံ့ပြန်နိုင်သည်။
+
+- **24/7 စောင့်ကြည့်နိုင်ခြင်း-** လူသားဝန်ထမ်းများ နားနေချိန်တွင်လည်း AI Agents များက မရပ်မနား အလုပ်လုပ်နိုင်သည်။
+
+- **Consistency ရှိခြင်း-** Standard Operating Procedures (SOPs) များကို တိကျစွာ လိုက်နာဆောင်ရွက်နိုင်သည်။
+
+## ၃။ လိုအပ်သော နည်းပညာများနှင့် Tools များ (Free & Open Source)
+
+အောက်ပါဇယားသည် ကုန်ကျစရိတ်မရှိဘဲ အသုံးပြုနိုင်သော Tools များကို ဖော်ပြထားသည်-
+
+| ကဏ္ဍ (Category) | အကြံပြုထားသော Tool | လုပ်ဆောင်ချက် |
+|---|---|---|
+| **LLM / AI Brain** | Ollama (with Llama 3 / Mistral) | Local Machine တွင် AI Model run ရန် အသုံးပြုသည်။ Data Privacy အတွက် အထူးကောင်းမွန်သည်။ |
+| **Orchestration / Automation** | n8n (Self-hosted) | Workflow များကို ချိတ်ဆက်ရန် အသုံးပြုသည်။ (ဥပမာ - Log ဖတ်ပြီး AI သို့ ပို့ခြင်း) |
+| **Log Management / SIEM** | Wazuh | Security Event များကို သိမ်းဆည်းရန်နှင့် စောင့်ကြည့်ရန် အသုံးပြုသည်။ |
+| **Communication** | Slack / Discord / Telegram | AI Agent က Analyst သို့ သတိပေးစာ (Notification) ပို့ရန် အသုံးပြုသည်။ |
+| **Vector Database (Optional)** | ChromaDB | AI အား အဖွဲ့အစည်း၏ သီးသန့် Knowledge Base (RAG) ထည့်သွင်းပေးလိုပါက အသုံးပြုနိုင်သည်။ |
+
+## ၄။ အဆင့်ဆင့် တည်ဆောက်ခြင်း လမ်းညွှန် (Step-by-Step Guide)
+
+### အဆင့် (၁) - Wazuh (SIEM) တပ်ဆင်ခြင်း
+
+ပထမဦးစွာ Network အတွင်းရှိ Endpoint များမှ Log များကို စုစည်းရန် Wazuh ကို Server တစ်ခုတွင် Install လုပ်ပါ။ Wazuh သည် Intrusion Detection System (IDS) အဖြစ်လည်း လုပ်ဆောင်ပေးနိုင်ပြီး အခြေခံ Alert များကို ထုတ်ပေးနိုင်သည်။
+
+### အဆင့် (၂) - Local LLM Server (Ollama) ပြင်ဆင်ခြင်း
+
+Cloud AI (ဥပမာ - OpenAI) ကို သုံးပါက ကုမ္ပဏီ၏ Data များ ပေါက်ကြားနိုင်သဖြင့် Local တွင် run နိုင်သော Ollama ကို အသုံးပြုသင့်သည်။
+
+1. Linux သို့မဟုတ် Windows Server တွင် Ollama install ပြုလုပ်ပါ။
+2. `ollama run llama3` ကဲ့သို့သော command ဖြင့် Model ကို download လုပ်ပါ။
+3. Ollama ၏ API endpoint ကို ဖွင့်ထားပါ။ (ပုံမှန်အားဖြင့် port 11434 တွင် run သည်)
+
+### အဆင့် (၃) - n8n Workflow တည်ဆောက်ခြင်း
+
+n8n သည် ဤစနစ်၏ "ကျောရိုး" ဖြစ်သည်။ အောက်ပါအတိုင်း Workflow တည်ဆောက်ပါ-
+
+- **Trigger:** Wazuh မှ Alert တစ်ခု ဝင်လာပါက (Webhook မှတဆင့်) n8n ကို စတင်အလုပ်လုပ်စေပါ။
+- **Analysis:** n8n မှတဆင့် Wazuh Alert ၏ အချက်အလက်များ (Source IP, Event ID) ကို ရယူပြီး Ollama AI သို့ ပို့ဆောင်ပါ။
+- **Prompt Engineering:** AI ထံသို့ ညွှန်ကြားချက်ပေးရာတွင် *"You are a Level 1 SOC Analyst. Analyze this log for malicious activity..."* စသဖြင့် တိကျစွာ ရေးသားပါ။
+- **Enrichment:** လိုအပ်ပါက VirusTotal ကဲ့သို့သော Free API များဖြင့် IP Reputation ကို စစ်ဆေးခိုင်းပါ။
+- **Action:** AI ၏ သုံးသပ်ချက်ရလဒ်ကို Slack သို့မဟုတ် Telegram သို့ ပေးပို့ပါ။
+
+### အဆင့် (၄) - စမ်းသပ်ခြင်းနှင့် ညှိနှိုင်းခြင်း (Testing & Tuning)
+
+စနစ်တစ်ခုလုံး ပြီးစီးပါက Brute Force Attack ကဲ့သို့သော Simulation တစ်ခုပြုလုပ်ပြီး AI Agent ၏ တုံ့ပြန်မှုကို စစ်ဆေးပါ။ False Positive များ လျော့နည်းစေရန် Prompt များကို ပြန်လည်ပြင်ဆင်ပါ။
+
+## ၅။ လက်တွေ့ အသုံးချနိုင်မည့် ပုံစံများ (Use Cases)
+
+Zero Budget AI Agent အနေဖြင့် အောက်ပါကိစ္စရပ်များကို ကောင်းစွာ ကိုင်တွယ်ဖြေရှင်းနိုင်သည်-
+
+- **Phishing Analysis:** ဝန်ထမ်းများထံမှ report လုပ်လာသော သံသယဖြစ်ဖွယ် Email များကို ဖတ်ရှုပြီး Header analysis ပြုလုပ်ခြင်း။
+
+- **Log Summarization:** ရှုပ်ထွေးသော System Log များကို လူနားလည်လွယ်သော ဘာသာစကားဖြင့် အနှစ်ချုပ်ပေးခြင်း။
+
+- **SOP Recommendation:** ဖြစ်ပွားနေသော Incident ပေါ်မူတည်၍ SOC Analyst အနေဖြင့် မည်သို့ဆက်လက်ဆောင်ရွက်သင့်သည်ကို အကြံပြုခြင်း။
+
+## ၆။ လုံခြုံရေးဆိုင်ရာ သတိပြုရမည့်အချက်များ
+
+> **အထူးသတိပြုရန်-** "Zero Budget" ဟု ဆိုသော်လည်း "Zero Security" မဖြစ်စေရပါ။ AI Model များကို အသုံးပြုရာတွင် Data Privacy သည် အလွန်အရေးကြီးပါသည်။
+
+- **Data Sanitization:** AI သို့ Log မပို့မီ Sensitive ဖြစ်သော အချက်အလက်များ (PII, Passwords) ကို ဖယ်ရှားပါ။
+
+- **Network Segmentation:** AI Server နှင့် Log Server များကို သီးသန့် Network VLAN တွင်ထားရှိပါ။
+
+- **Human-in-the-loop:** အလိုအလျောက် ပိတ်ပင်ခြင်း (Auto-blocking) ကဲ့သို့သော အန္တရာယ်များသော လုပ်ရပ်များကို AI အား တစ်ဦးတည်း ဆုံးဖြတ်ခွင့်မပေးဘဲ လူသား Analyst ၏ အတည်ပြုချက်ရယူပြီးမှသာ လုပ်ဆောင်စေပါ။
+
+## ၇။ နိဂုံး (Conclusion)
+
+AI Agent Assistance ကို SOC အတွက် တည်ဆောက်ခြင်းသည် ငွေကုန်ကြေးကျများသော ကိစ္စမဟုတ်တော့ပါ။ Wazuh, n8n နှင့် Ollama ကဲ့သို့သော Open Source Tool များကို ပေါင်းစပ်အသုံးပြုခြင်းဖြင့် ထိရောက်သော Cyber Defense စနစ်တစ်ခုကို တည်ဆောက်နိုင်ပါသည်။ သို့သော် ဤစနစ်သည် လူသား Analyst များကို အစားထိုးရန်မဟုတ်ဘဲ၊ ၎င်းတို့၏ လုပ်ဆောင်နိုင်စွမ်းကို မြှင့်တင်ပေးရန် (Augmentation) သာ ရည်ရွယ်ကြောင်း သတိပြုသင့်ပါသည်။
+
+နည်းပညာများ အမြဲမပြတ် ပြောင်းလဲတိုးတက်နေသဖြင့် SOC အဖွဲ့သားများအနေဖြင့်လည်း AI နှင့် Automation နည်းပညာများကို စဉ်ဆက်မပြတ် လေ့လာသင်ယူနေရန် လိုအပ်ပါသည်။
